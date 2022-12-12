@@ -49,7 +49,7 @@ def face2paint(device="cuda", size=512, side_by_side=False):
         s = min(w, h)
         img = img.crop(((w - s) // 2, (h - s) // 2, (w + s) // 2, (h + s) // 2))
         img = img.resize((size, size), Image.LANCZOS)
-
+        start = time.time()
         with torch.no_grad():
             input = to_tensor(img).unsqueeze(0) * 2 - 1
             output = model(input.to(device)).cpu()[0]
@@ -58,7 +58,7 @@ def face2paint(device="cuda", size=512, side_by_side=False):
                 output = torch.cat([input[0], output], dim=2)
 
             output = (output * 0.5 + 0.5).clip(0, 1)
-
+        print("FTF로딩시간 : ", end-start)
         return to_pil_image(output)
 
     return face2paint
