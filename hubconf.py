@@ -1,6 +1,6 @@
 import torch
 
-
+#모델 설정
 def generator(pretrained=True, device="cuda", progress=True, check_hash=True):
     from model import Generator
 
@@ -33,7 +33,7 @@ def generator(pretrained=True, device="cuda", progress=True, check_hash=True):
 
     return model
 
-
+#얼굴인식, 애니화
 def face2paint(device="cuda", size=512, side_by_side=False):
     from PIL import Image
     from torchvision.transforms.functional import to_tensor, to_pil_image
